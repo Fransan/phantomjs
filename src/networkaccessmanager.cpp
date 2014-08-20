@@ -254,6 +254,9 @@ QNetworkReply *NetworkAccessManager::createRequest(Operation op, const QNetworkR
     emit resourceRequested(data, &jsNetworkRequest);
 
     // Pass duty to the superclass - Nothing special to do here (yet?)
+    cout << *op;
+    cout << *req;
+    cout << *outgoingData;
     QNetworkReply *reply = QNetworkAccessManager::createRequest(op, req, outgoingData);
 
     // reparent jsNetworkRequest to make sure that it will be destroyed with QNetworkReply
