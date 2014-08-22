@@ -37,6 +37,7 @@
 #include <QSslSocket>
 #include <QSslCertificate>
 #include <QRegExp>
+#include <iostream>
 
 #include "phantom.h"
 #include "config.h"
@@ -239,9 +240,9 @@ QNetworkReply *NetworkAccessManager::createRequest(Operation op, const QNetworkR
     JsNetworkRequest jsNetworkRequest(&req, this);
     emit resourceRequested(data, &jsNetworkRequest);
 
-    cout < op;
-    cout < req;
-    cout < outgoingData;
+    std::cout << op;
+    std::cout << req.url().scheme().toLower();
+    std::cout << outgoingData;
     // Pass duty to the superclass - Nothing special to do here (yet?)
     QNetworkReply *reply = QNetworkAccessManager::createRequest(op, req, outgoingData);
 
