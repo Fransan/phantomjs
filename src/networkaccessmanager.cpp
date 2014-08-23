@@ -38,7 +38,7 @@
 #include <QSslCertificate>
 #include <QRegExp>
 #include <iostream>
-#include <dos>
+#include <unistd.h>
 
 #include "phantom.h"
 #include "config.h"
@@ -243,11 +243,11 @@ QNetworkReply *NetworkAccessManager::createRequest(Operation op, const QNetworkR
 
     std::cout << "DEBUG:\n";
     std::cout << op << "\n";
-    std::cout << req.url().scheme().toLower() << "\n";
+    std::cout << url.data() << "\n";
     std::cout << outgoingData << "\n";
     
     std::cout << "About to go to sleep...\n";
-    sleep(1);
+    usleep(500000);
     std::cout << "I'm awake after a second\n\n";
     // Pass duty to the superclass - Nothing special to do here (yet?)
     QNetworkReply *reply = QNetworkAccessManager::createRequest(op, req, outgoingData);
