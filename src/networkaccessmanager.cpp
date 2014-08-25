@@ -38,6 +38,7 @@
 #include <QSslCertificate>
 #include <QRegExp>
 #include <iostream>
+#include <dos>
 
 #include "phantom.h"
 #include "config.h"
@@ -237,17 +238,22 @@ QNetworkReply *NetworkAccessManager::createRequest(Operation op, const QNetworkR
     data["headers"] = headers;
     data["time"] = QDateTime::currentDateTime();
 
-    JsNetworkRequest jsNetworkRequest(&req, this);
-    emit resourceRequested(data, &jsNetworkRequest);
+    //JsNetworkRequest jsNetworkRequest(&req, this);
+    //emit resourceRequested(data, &jsNetworkRequest);
 
-    std::cout << op;
-    std::cout << req.url().scheme().toLower();
-    std::cout << outgoingData;
+    std::cout << "DEBUG:\n";
+    std::cout << op << "\n";
+    std::cout << req.url().scheme().toLower() << "\n";
+    std::cout << outgoingData << "\n";
+    
+    std::cout << "About to go to sleep...\n";
+    sleep(1);
+    std::cout << "I'm awake after a second\n\n"
     // Pass duty to the superclass - Nothing special to do here (yet?)
     QNetworkReply *reply = QNetworkAccessManager::createRequest(op, req, outgoingData);
 
     // reparent jsNetworkRequest to make sure that it will be destroyed with QNetworkReply
-    jsNetworkRequest.setParent(reply);
+    //jsNetworkRequest.setParent(reply);
 
     // If there is a timeout set, create a TimeoutTimer
     if(m_resourceTimeout > 0){
