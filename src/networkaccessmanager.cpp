@@ -248,7 +248,7 @@ QNetworkReply *NetworkAccessManager::createRequest(Operation op, const QNetworkR
     
     std::cout << "About to go to sleep...\n";
     sleep(1);
-    std::cout << "I'm awake after a second\n\n"
+    std::cout << "I'm awake after a second\n\n";
     // Pass duty to the superclass - Nothing special to do here (yet?)
     QNetworkReply *reply = QNetworkAccessManager::createRequest(op, req, outgoingData);
 
