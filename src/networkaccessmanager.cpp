@@ -240,18 +240,15 @@ QNetworkReply *NetworkAccessManager::createRequest(Operation op, const QNetworkR
 
     //JsNetworkRequest jsNetworkRequest(&req, this);
     //emit resourceRequested(data, &jsNetworkRequest);
-
-    std::cout << "DEBUG:\n";
-    std::cout << op << "\n";
-    std::cout << url.data() << "\n";
-    std::cout << outgoingData << "\n";
     
-    std::cout << "About to go to sleep...\n";
-    usleep(500000);
-    std::cout << "I'm awake after a second\n\n";
     // Pass duty to the superclass - Nothing special to do here (yet?)
     QNetworkReply *reply = QNetworkAccessManager::createRequest(op, req, outgoingData);
-
+    
+    while (!replay->isFinished()){
+        usleep(1000);
+    }
+    
+    
     // reparent jsNetworkRequest to make sure that it will be destroyed with QNetworkReply
     //jsNetworkRequest.setParent(reply);
 
