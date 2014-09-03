@@ -244,7 +244,7 @@ QNetworkReply *NetworkAccessManager::createRequest(Operation op, const QNetworkR
     // Pass duty to the superclass - Nothing special to do here (yet?)
     QNetworkReply *reply = QNetworkAccessManager::createRequest(op, req, outgoingData);
     
-    while (!replay->isFinished()){
+    while (!reply->isFinished()){
         usleep(1000);
     }
     
