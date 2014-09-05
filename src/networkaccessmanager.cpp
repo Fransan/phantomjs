@@ -237,20 +237,17 @@ QNetworkReply *NetworkAccessManager::createRequest(Operation op, const QNetworkR
     data["method"] = toString(op);
     data["headers"] = headers;
     data["time"] = QDateTime::currentDateTime();
-
-    //JsNetworkRequest jsNetworkRequest(&req, this);
-    //emit resourceRequested(data, &jsNetworkRequest);
+    
+    usleep(1000);
+    
+    JsNetworkRequest jsNetworkRequest(&req, this);
+    emit resourceRequested(data, &jsNetworkRequest);
     
     // Pass duty to the superclass - Nothing special to do here (yet?)
     QNetworkReply *reply = QNetworkAccessManager::createRequest(op, req, outgoingData);
     
-    while (!reply->isFinished()){
-        usleep(1000);
-    }
-    
-    
     // reparent jsNetworkRequest to make sure that it will be destroyed with QNetworkReply
-    //jsNetworkRequest.setParent(reply);
+    jsNetworkRequest.setParent(reply);
 
     // If there is a timeout set, create a TimeoutTimer
     if(m_resourceTimeout > 0){
