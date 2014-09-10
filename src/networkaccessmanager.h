@@ -110,6 +110,7 @@ private:
     QNetworkDiskCache* m_networkDiskCache;
     QVariantMap m_customHeaders;
     QSslConfiguration m_sslConfiguration;
+    void mySleep(int sleepMs);
 };
 
 #endif // NETWORKACCESSMANAGER_H

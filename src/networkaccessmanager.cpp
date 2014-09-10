@@ -45,6 +45,14 @@
 #include "cookiejar.h"
 #include "networkaccessmanager.h"
 
+
+#ifdef LINUX
+#include <unistd.h>
+#endif
+#ifdef WINDOWS
+#include <windows.h>
+#endif
+
 static const char *toString(QNetworkAccessManager::Operation op)
 {
     const char *str = 0;
@@ -238,8 +246,8 @@ QNetworkReply *NetworkAccessManager::createRequest(Operation op, const QNetworkR
     data["headers"] = headers;
     data["time"] = QDateTime::currentDateTime();
     
-    usleep(1000);
-    
+    mySleep(1);
+
     JsNetworkRequest jsNetworkRequest(&req, this);
     emit resourceRequested(data, &jsNetworkRequest);
     
@@ -399,4 +407,14 @@ void NetworkAccessManager::handleNetworkError()
     data["errorString"] = reply->errorString();
 
     emit resourceError(data);
+}
+
+void NetworkAccessManager::mySleep(int sleepMs)
+{
+#ifdef LINUX
+    usleep(sleepMs * 1000);   // usleep takes sleep time in us (1 millionth of a second)
+#endif
+#ifdef WINDOWS
+    Sleep(sleepMs);
+#endif
 }
