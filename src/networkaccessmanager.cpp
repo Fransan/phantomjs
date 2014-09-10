@@ -46,10 +46,10 @@
 #include "networkaccessmanager.h"
 
 
-#ifdef LINUX
+#ifdef __linux__
 #include <unistd.h>
 #endif
-#ifdef WINDOWS
+#ifdef _WIN64
 #include <windows.h>
 #endif
 
