@@ -38,7 +38,6 @@
 #include <QSslCertificate>
 #include <QRegExp>
 #include <iostream>
-#include <unistd.h>
 
 #include "phantom.h"
 #include "config.h"
@@ -411,10 +410,10 @@ void NetworkAccessManager::handleNetworkError()
 
 void NetworkAccessManager::mySleep(int sleepMs)
 {
-#ifdef LINUX
+#ifdef __linux__
     usleep(sleepMs * 1000);   // usleep takes sleep time in us (1 millionth of a second)
 #endif
-#ifdef WINDOWS
+#ifdef _WIN64
     Sleep(sleepMs);
 #endif
 }
